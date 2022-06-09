@@ -26,6 +26,9 @@ a{
     color: unset;
 }
 
+a:hover {
+    color : $main-color;
+}
 @each $color , $val in $colors {
     .color-#{$color}{
         color : $val;
@@ -37,17 +40,23 @@ a{
 }
 
 @each $val in $numbers {
-    .grid-col-md-#{$val}{
+    .grid-col-#{$val} {
+        grid-template-columns: repeat($val, 1fr);
+    }
+}
+
+@each $val in $numbers {
+    .grid-col-md-#{$val} {
         @include tablet {
-            grid-template-columns:  repeat($val , 1fr);
+            grid-template-columns: repeat($val, 1fr);
         }
     }
 }
 
 @each $val in $numbers {
-    .grid-col-md-#{$val}{
+    .grid-col-sm-#{$val} {
         @include mobile {
-            grid-template-columns:  repeat($val , 1fr);
+            grid-template-columns: repeat($val, 1fr);
         }
     }
 }
@@ -82,5 +91,9 @@ a{
 
 }
 
+
+.grid{
+    display: grid;
+}
 
 

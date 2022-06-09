@@ -38,9 +38,13 @@ const Header = () => {
             }
         });
         return () => {
-            window.removeEventListener("scroll")
+            window.removeEventListener("scroll",null);
         };
     }, []);
+
+    const menuLeft = useRef(null);
+    const menuToggle = () =>  menuLeft.current.classList.toggle('active');
+  
 
   return (
     <div className="header" ref={headerRef}>
@@ -51,11 +55,11 @@ const Header = () => {
               </Link>
             </div>
             <div className="header__menu">
-                <div className="header__menu__mobile__toggle">
+                <div className="header__menu__mobile__toggle" onClick={menuToggle}>
                     <i className='bx bx-menu-alt-left'></i>
                 </div>
-              <div className="header__menu__left">
-                <div className="header__menu__left__close">
+              <div className="header__menu__left" ref={menuLeft}>
+                <div className="header__menu__left__close" onClick={menuToggle}>
                     <i className='bx bx-chevron-left'></i>
                     </div>
                   {
