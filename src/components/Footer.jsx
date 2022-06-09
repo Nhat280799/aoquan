@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Cart = () => {
+const Footer = () => {
   return (
     <div>
-      casrt
+      Footer
     </div>
   )
 }
 
-export default Cart
+export default Footer
