@@ -4,7 +4,7 @@
     overflow: hidden;
     position: relative;
     margin-bottom: 50px;
-    margin-top: cacl(#{$header-height} * -1);
+    margin-top: calc(#{$header-height} * -1);
 
     @include tablet(){
         margin-top: calc(#{$header-tablet-height} * -1);
@@ -22,6 +22,16 @@
         pointer-events: none;
         position: absolute;
         inset: 0;
+
+        @include tablet {
+            flex-direction: column-reverse;
+            padding-top:  $header_tablet_height;
+        }
+
+        @include mobile {
+            padding-top: unset;
+            padding-bottom: 40px;
+        }
 
         &.active{
             opacity: 1;
@@ -75,7 +85,21 @@
     &__btn {
         overflow: hidden;
     }
+
+    &__title > span , &__description > span , &__btn button{
+        display: block;
+        transform: translateY(-100%);
+        transition: transform .3s ease-in-out;
+    }
 }
+
+    &.active &__info{
+        &__title > span , &__description > span , &__btn button{
+            display: block;
+            transform: translateY(0);
+            transition: transform .3s ease-in-out;
+        }
+    }
 
         &__image{
             flex-grow: 1;
@@ -84,11 +108,26 @@
             z-index: 99;
             pointer-events: none;
 
+            @include tablet{
+                width: 100%;
+                height: 60px;
+                @include flex(center, center);
+                flex-grow: unset;
+                z-index: 98;
+            }
+
             img{
                 height: 100vh;
                 position: absolute;
                 bottom: 0;
                 right: 0;
+                transform: scale(0) rotate(65deg);
+                transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+                @include tablet{
+                    height: 100%;
+                    position: relative;
+                }
             }
 
             .shape{
@@ -102,42 +141,54 @@
                 transform: translate(0,-50%);
                 transition: border-radius 13s ease;
                 animation:  border 10s infinite;
+
+                @include tablet{
+                    $size : 250px;
+                    height : $size;
+                    width: $size;
+                    right: 50%;
+                    transform: translate(50%,-50%);
+                }
             }
         }
 
-        &__control {
-            @include flex(center,center);
-            position: absolute;
-            bottom: 50px;
-            left: 50px;
-            transform: translateX(-50%);
+        &.active &__image > img {
+            transform: scale(1) rotate(0);
+        }
+
+        // &__control {
+        //     @include flex(center,center);
+        //     position: absolute;
+        //     bottom: 50px;
+        //     left: 50%;
+        //     transform: translateX(-50%);
         
 
-        &__item ~ &__item{
-            margin-left: 10px;
-        }
+        // &__item ~ &__item{
+        //     margin-left: 10px;
+        // }
 
-        &__item{
-            @include flex(center,center);
-            font-size: 2rem;
-            cursor: pointer;
+        // &__item{
+        //     @include flex(center,center);
+        //     font-size: 2rem;
+        //     cursor: pointer;
 
-            &:hover{
-                color: $main-color;
-            }
+        //     &:hover{
+        //         color: $main-color;
+        //     }
 
-            .index{
-                font-size: 1.5rem;
-            }
-        }
-        }
+        //     .index{
+        //         font-size: 1.5rem;
+        //     }
+        // }
+        // }
     }
 
     &__control {
         @include flex(center, center);
         position: absolute;
         bottom: 50px;
-        left: 50px;
+        left: 50%;
         transform: translateX(-50%);
 
 
@@ -159,6 +210,7 @@
             }
         }
     }
+
 
 }
 
