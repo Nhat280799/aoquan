@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { useState , useCallback , useEffect } from 'react'
 import Helmet from '../components/Helmet'
 import Checkbox from '../components/Checkbox'
 import Grid from '../components/Grid'
@@ -8,7 +8,7 @@ import category from '../assets/fake-data/category'
 import colors  from '../assets/fake-data/product-color'
 import sizes from '../assets/fake-data/product-size'
 import Button from '../components/Button'
-import { useState } from 'react'
+import InfinityList from '../components/InfinityList'
 const Catalog = () => {
 
   const initFilter = {
@@ -29,13 +29,13 @@ const Catalog = () => {
           switch(type){
               case "CATEGORY":
                 setFilter({...filter, category : [...filter.category , item.categorySlug]})
-                break;
+                break
                case "COLOR":
-                setFilter({...filter, category : [...filter.color , item.color]})
-                break;
+                setFilter({...filter, color : [...filter.color , item.color]})
+                break
                case "SIZE":
-                setFilter({...filter, category : [...filter.size , item.size]})
-                break;
+                setFilter({...filter, size : [...filter.size , item.size]})
+                break
                 default:
           }
       }else{
@@ -57,6 +57,44 @@ const Catalog = () => {
       }
   }
 
+  const updateProducts = useCallback(
+        () => {
+            let temp = productList
+
+            if (filter.category.length > 0) {
+                temp = temp.filter(e => filter.category.includes(e.categorySlug))
+            }
+
+            if (filter.color.length > 0) {
+                temp = temp.filter(e => {
+                    const check = e.colors.find(color => filter.color.includes(color))
+                    return check !== undefined
+                })
+            }
+
+            if (filter.size.length > 0) {
+                temp = temp.filter(e => {
+                    const check = e.size.find(size => filter.size.includes(size))
+                    return check !== undefined
+                })
+            }
+
+            setProducts(temp)
+        },
+        [filter, productList],
+    )
+
+    const clearFilter = () => {
+        setFilter(initFilter);
+    }
+
+    useEffect(() => {
+        updateProducts()
+    }, [updateProducts])
+
+  useEffect(() => {
+    updateProducts();
+  },[updateProducts])
   return (
     <Helmet title="sản phẩm">
       {
@@ -79,6 +117,7 @@ const Catalog = () => {
                                     onChange = {(input) => filterSelect(
                                       "CATEGORY" , input.checked , item
                                     )}
+                                    checked = {filter.category.includes(item.categorySlug)}
                                   />
                                 </div>
                               )
@@ -101,6 +140,7 @@ const Catalog = () => {
                                     onChange = {(input) => filterSelect(
                                       "COLOR" , input.checked , item
                                     )}
+                                    checked = {filter.color.includes(item.color)}
                                   />
                                 </div>
                               )
@@ -123,6 +163,7 @@ const Catalog = () => {
                                     onChange = {(input) => filterSelect(
                                       "SIZE",input.checked , item
                                     )}
+                                    checked = {filter.size.includes(item.size)}
                                   />
                                 </div>
                               )
@@ -132,32 +173,14 @@ const Catalog = () => {
                 </div>
                 <div className="catalog__filter__widget">
                       <div className="catalog__filter__widget__content">
-                        <Button size="sm">xóa bộ lọc</Button>
+                        <Button size="sm" onClick={clearFilter}>xóa bộ lọc</Button>
                       </div>
                 </div>
             </div>
             <div className="catalog__content">
-              <Grid
-                col={3}
-                mdCol={2}
-                smCol={1}
-                gap={20}
-              >
-                {
-                    products.map((item,index) => {
-                        return (
-                        <ProductCard 
-                          key={index}
-                          img01={item.image01}
-                          img02={item.image02}
-                          name={item.title}
-                          price={Number(item.price)}
-                          slug={item.slug}
-                        />
-                        )
-                    })
-                }
-              </Grid>
+                   <InfinityList
+                        data={products}
+                    />
             </div>
         </div>
     </Helmet>

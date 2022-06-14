@@ -1,21 +1,21 @@
-.hero-slider{
+.hero-slider {
     height: 100vh;
-    max-height:  1080px;
+    max-height: 1080px;
     overflow: hidden;
     position: relative;
     margin-bottom: 50px;
     margin-top: calc(#{$header-height} * -1);
 
-    @include tablet(){
+    @include tablet {
         margin-top: calc(#{$header-tablet-height} * -1);
     }
 
-    @include mobile(){
-        margin-top:  calc(#{$header-mobile-height} * -1);
+    @include mobile {
+        margin-top: calc(#{$header-mobile-height} * -1);
     }
 
-    &__item{
-        @include flex(center,space-between);
+    &__item {
+        @include flex(center, space-between);
 
         opacity: 0;
         visibility: hidden;
@@ -25,7 +25,7 @@
 
         @include tablet {
             flex-direction: column-reverse;
-            padding-top:  $header_tablet_height;
+            padding-top: $header-tablet-height;
         }
 
         @include mobile {
@@ -33,121 +33,123 @@
             padding-bottom: 40px;
         }
 
-        &.active{
+        &.active {
             opacity: 1;
             visibility: visible;
             pointer-events: visible;
-
         }
 
-&__info {
-    width: 58.33%;
+        &__info {
+            width: 58.33%;
 
-    @include tablet {
-        width: 100%;
-        flex-grow: 1;
-    }
+            @include tablet {
+                width: 100%;
+                flex-grow: 1;
+            }
 
-    &__title,
-    &__description {
-        margin-bottom: 60px;
+            &__title,
+            &__description {
+                margin-bottom: 60px;
 
-        @include tablet {
-            margin-bottom: 15px;
+                @include tablet {
+                    margin-bottom: 15px;
+                }
+            }
+
+            &__title {
+                font-family: "M PLUS Rounded 1c", sans-serif;
+                font-weight: 600;
+                font-size: 4.5rem;
+                line-height: 6.75rem;
+                overflow: hidden;
+
+                @include mobile {
+                    font-size: 2.5rem;
+                    line-height: 3.75rem;
+                }
+            }
+
+            &__description {
+                color: $txt-second-color;
+                font-size: 1.5rem;
+                line-height: 2.25rem;
+                overflow: hidden;
+
+                @include mobile {
+                    font-size: 1rem;
+                    line-height: 1.5rem;
+                }
+            }
+
+            &__btn {
+                overflow: hidden;
+            }
+
+            &__title > span,
+            &__description > span,
+            &__btn button {
+                display: block;
+                transform: translateY(-100%);
+                transition: transform 0.5s ease;
+            }
         }
-    }
 
-    &__title {
-        font-family: "M PLUS Rounded 1c", sans-serif;
-        font-weight: 600;
-        font-size: 4.5rem;
-        line-height: 6.75rem;
-        overflow: hidden;
-
-        @include mobile {
-            font-size: 2.5rem;
-            line-height: 3.75rem;
+        &.active &__info {
+            &__title > span,
+            &__description > span,
+            &__btn button {
+                transform: translateY(0);
+            }
         }
-    }
 
-    &__description {
-        color: $txt-second-color;
-        font-size: 1.5rem;
-        line-height: 2.25rem;
-        overflow: hidden;
-
-        @include mobile {
-            font-size: 1rem;
-            line-height: 1.5rem;
-        }
-    }
-
-    &__btn {
-        overflow: hidden;
-    }
-
-    &__title > span , &__description > span , &__btn button{
-        display: block;
-        transform: translateY(-100%);
-        transition: transform .3s ease-in-out;
-    }
-}
-
-    &.active &__info{
-        &__title > span , &__description > span , &__btn button{
-            display: block;
-            transform: translateY(0);
-            transition: transform .3s ease-in-out;
-        }
-    }
-
-        &__image{
+        &__image {
             flex-grow: 1;
             position: relative;
             height: 100%;
             z-index: 99;
             pointer-events: none;
 
-            @include tablet{
+            @include tablet {
                 width: 100%;
-                height: 60px;
+                height: 60%;
                 @include flex(center, center);
                 flex-grow: unset;
                 z-index: 98;
             }
 
-            img{
+            img {
                 height: 100vh;
                 position: absolute;
                 bottom: 0;
                 right: 0;
                 transform: scale(0) rotate(65deg);
-                transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                transition: transform 0.5s
+                    cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-                @include tablet{
+                @include tablet {
                     height: 100%;
                     position: relative;
                 }
             }
 
-            .shape{
-                $size : 472px;
+            .shape {
+                $size: 472px;
                 height: $size;
                 width: $size;
                 position: absolute;
                 right: 0;
                 top: 50%;
                 border-radius: 58% 42% 38% 62% / 42% 55% 45% 58%;
-                transform: translate(0,-50%);
+                transform: translate(0, -50%);
                 transition: border-radius 13s ease;
-                animation:  border 10s infinite;
+                animation: border 10s infinite;
 
-                @include tablet{
-                    $size : 250px;
-                    height : $size;
+                @include tablet {
+                    $size: 250px;
+                    height: $size;
                     width: $size;
                     right: 50%;
-                    transform: translate(50%,-50%);
+                    transform: translate(50%, -50%);
                 }
             }
         }
@@ -155,33 +157,6 @@
         &.active &__image > img {
             transform: scale(1) rotate(0);
         }
-
-        // &__control {
-        //     @include flex(center,center);
-        //     position: absolute;
-        //     bottom: 50px;
-        //     left: 50%;
-        //     transform: translateX(-50%);
-        
-
-        // &__item ~ &__item{
-        //     margin-left: 10px;
-        // }
-
-        // &__item{
-        //     @include flex(center,center);
-        //     font-size: 2rem;
-        //     cursor: pointer;
-
-        //     &:hover{
-        //         color: $main-color;
-        //     }
-
-        //     .index{
-        //         font-size: 1.5rem;
-        //     }
-        // }
-        // }
     }
 
     &__control {
@@ -191,8 +166,11 @@
         left: 50%;
         transform: translateX(-50%);
 
+        @include tablet {
+            bottom: 20px;
+        }
 
-        &__item~&__item {
+        &__item ~ &__item {
             margin-left: 10px;
         }
 
@@ -210,24 +188,16 @@
             }
         }
     }
-
-
 }
 
-@keyframes border{
-    0%{
+@keyframes border {
+    0% {
         border-radius: 58% 42% 38% 62% / 42% 55% 45% 58%;
-    }
-    25%{
-        border-radius: 0% 100% 0% 100% / 98% 0% 100% 2%;
     }
     50% {
         border-radius: 31% 69% 59% 41% / 28% 24% 76% 72%;
     }
-    75% {
-        border-radius: 100% 0% 100% 0% / 100% 0% 100% 0%;
-    }
-    100%{
+    100% {
         border-radius: 58% 42% 38% 62% / 42% 55% 45% 58%;
     }
 }
