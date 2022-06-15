@@ -172,4 +172,4 @@ ProductView.propTypes = {
     product : PropTypes.object.isRequired
 }
 
-export default widthRouter(ProductView)
+export default ProductView

@@ -6,7 +6,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 import Routess from "../router/Routess";
-
+import ProductViewModal from './ProductViewModal';
 const layout = () => {
   return (
         <BrowserRouter>
@@ -18,6 +18,7 @@ const layout = () => {
                         </div>
                     </div>
                     <Footer/>
+                    <ProductViewModal />
                 </div>
 
         </BrowserRouter>
