@@ -1,7 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit'
 
-import productModalSliceJs from "./productModalSlice.js";
+import productModalReducer from './product-modal/productModalSlice'
+
 
 export const store = configureStore({
-    reducer: {productModalSliceJs}
-}) 
+    reducer: {
+        productModal: productModalReducer,
+    },
+})

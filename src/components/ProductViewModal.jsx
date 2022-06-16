@@ -6,7 +6,7 @@ import ProductView from './ProductView'
 
 import Button from './Button'
 
-import { remove } from '../redux/productModalSlice'
+import { remove } from '../redux/product-modal/productModalSlice'
 
 import productData from '../assets/fake-data/products'
 
