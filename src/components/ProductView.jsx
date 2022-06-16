@@ -5,7 +5,20 @@ import Button from "../components/Button"
 import numberWidthCommas from '../untils/numberWidthCommas';
 import { widthRouter} from 'react-router';
 const ProductView = props => {
-  const product = props.product;
+   let product = props.product
+
+    if (product === undefined) product = {
+        title: "",
+        price: '',
+        image01: null,
+        image02: null,
+        categorySlug: "",
+        colors: [],
+        slug: "",
+        size: [],
+        description: ""
+    }
+    
   const [previewImg,setPreviewImg] = useState(product.image01)
 
 
