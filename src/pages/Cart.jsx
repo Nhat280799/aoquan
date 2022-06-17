@@ -49,7 +49,10 @@ const Cart = () => {
           </div>
           <div className="cart__list">
              {
-             console.log(cartProducts)
+              cartProducts.map((item,index) => {
+                return  <CartItem item={item} key={index} />
+             }
+             )
               }
           </div>
         </div>
