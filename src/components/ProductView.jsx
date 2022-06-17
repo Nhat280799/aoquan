@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { withRouter } from 'react-router'
+import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux'
+import { addItem } from '../redux/sopping-cart/cartItemSlide'
 
 import { remove } from '../redux/product-modal/productModalSlice'
 
@@ -11,10 +12,11 @@ import Button from './Button'
 import numberWithCommas from '../untils/numberWidthCommas'
 
 
+
 const ProductView = props => {
 
     const dispatch = useDispatch()
-
+    const history = useNavigate();
     let product = props.product
 
     if (product === undefined) product = {
@@ -68,8 +70,30 @@ const ProductView = props => {
         return true
     }
 
+    const addToCart = () => {
+        if(check()){
+            dispatch(addItem({
+                slug : product.slug,
+                color : color,
+                size : size,
+                quantity : quantity,
+                price : product.price
+            }))
+        }
+    }
 
-
+    const goToCart = () => {
+        if(check()){
+            dispatch(addItem({
+                slug : product.slug,
+                color : color,
+                size : size,
+                quantity : quantity,
+                price : product.price  
+            }))
+            history('/cart');
+        }
+    }
 
     return (
         <div className="product">
@@ -153,8 +177,8 @@ const ProductView = props => {
                     </div>
                 </div>
                 <div className="product__info__item">
-                    <Button>thêm vào giỏ</Button>
-                    <Button>mua ngay</Button>
+                    <Button onClick={addToCart}>thêm vào giỏ</Button>
+                    <Button onClick={goToCart}>mua ngay</Button>
                 </div>
             </div>
         </div>
